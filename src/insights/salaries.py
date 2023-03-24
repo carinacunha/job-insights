@@ -28,30 +28,28 @@ def get_min_salary(path: str) -> int:
     raise NotImplementedError
 
 
+def validate_inputs(job: Dict, salary: Union[int, str]) -> bool:
+    if (type(job['min_salary']) not in [int, str] or
+        type(job['min_salary']) == str and
+            job['min_salary'].isnumeric() is False):
+        raise ValueError('Minimun salary is invalid')
+    if (type(job['max_salary']) not in [int, str] or
+        type(job['max_salary']) == str and
+            job['max_salary'].isnumeric() is False):
+        raise ValueError('Maximum salary is invalid')
+    if (type(salary) not in [int, str] or
+        type(salary) == str and
+            salary.isnumeric() is False):
+        raise ValueError('Salary is invalid')
+
+
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
-    """Checks if a given salary is in the salary range of a given job
-
-    Parameters
-    ----------
-    job : dict
-        The job with `min_salary` and `max_salary` keys
-    salary : int
-        The salary to check if matches with salary range of the job
-
-    Returns
-    -------
-    bool
-        True if the salary is in the salary range of the job, False otherwise
-
-    Raises
-    ------
-    ValueError
-        If `job["min_salary"]` or `job["max_salary"]` doesn't exists
-        If `job["min_salary"]` or `job["max_salary"]` aren't valid integers
-        If `job["min_salary"]` is greather than `job["max_salary"]`
-        If `salary` isn't a valid integer
-    """
-    raise NotImplementedError
+    if ('min_salary' not in job or 'max_salary' not in job):
+        raise ValueError('Minimum or maximum salary does not exist')
+    validate_inputs(job, salary)
+    if (job['min_salary'] > job['max_salary']):
+        raise ValueError("Minimum salary is higher than the maximum salary")
+    return int(job['min_salary']) <= int(salary) <= int(job['max_salary'])
 
 
 def filter_by_salary_range(
