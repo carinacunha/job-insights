@@ -29,14 +29,12 @@ def get_min_salary(path: str) -> int:
 
 
 def validate_inputs(job: Dict, salary: Union[int, str]) -> bool:
-    if (type(job['min_salary']) not in [int, str] or
-        type(job['min_salary']) == str and
-            job['min_salary'].isnumeric() is False):
-        raise ValueError('Minimun salary is invalid')
-    if (type(job['max_salary']) not in [int, str] or
-        type(job['max_salary']) == str and
-            job['max_salary'].isnumeric() is False):
-        raise ValueError('Maximum salary is invalid')
+    list = ['min_salary', 'max_salary']
+    for elem in list:
+        if (type(job[elem]) not in [int, str] or
+            type(job[elem]) == str and
+                job[elem].isnumeric() is False):
+            raise ValueError('Value is invalid')
     if (type(salary) not in [int, str] or
         type(salary) == str and
             salary.isnumeric() is False):
