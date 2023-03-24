@@ -1,21 +1,15 @@
 from typing import List, Dict
+from src.insights.jobs import read
 
 
 def get_unique_industries(path: str) -> List[str]:
-    """Checks all different industries and returns a list of them
+    data = read(path)
+    unique_industries = set()
+    for elem in data:
+        if elem['industry'] != '':
+            unique_industries.add(elem['industry'])
+    return unique_industries
 
-    Must call `read`
-
-    Parameters
-    ----------
-    path : str
-        Must be passed to `read`
-
-    Returns
-    -------
-    list
-        List of unique industries
-    """
     raise NotImplementedError
 
 
