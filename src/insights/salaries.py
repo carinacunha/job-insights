@@ -10,26 +10,21 @@ def get_max_salary(path: str) -> int:
             try:
                 max_salaries.add(int(elem['max_salary']))
             except ValueError:
-                print('Aconteceu um erro')
+                print('Error')
     return max(max_salaries)
     raise NotImplementedError
 
 
 def get_min_salary(path: str) -> int:
-    """Get the minimum salary of all jobs
-
-    Must call `read`
-
-    Parameters
-    ----------
-    path : str
-        Must be passed to `read`
-
-    Returns
-    -------
-    int
-        The minimum salary paid out of all job opportunities
-    """
+    data = read(path)
+    min_salaries = set()
+    for elem in data:
+        if elem['min_salary'] != '':
+            try:
+                min_salaries.add(int(elem['min_salary']))
+            except ValueError:
+                print('Error')
+    return min(min_salaries)
     raise NotImplementedError
 
 
