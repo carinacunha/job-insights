@@ -28,44 +28,34 @@ def get_min_salary(path: str) -> int:
     raise NotImplementedError
 
 
-def validate_inputs(job: Dict, salary: Union[int, str]) -> bool:
-    list = ['min_salary', 'max_salary']
-    for elem in list:
-        if (type(job[elem]) not in [int, str] or
-            type(job[elem]) == str and
-                job[elem].isnumeric() is False):
-            raise ValueError('Value is invalid')
-    if (type(salary) not in [int, str] or
-        type(salary) == str and
-            salary.isnumeric() is False):
-        raise ValueError('Salary is invalid')
-
-
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
-    if ('min_salary' not in job or 'max_salary' not in job):
-        raise ValueError('Minimum or maximum salary does not exist')
-    validate_inputs(job, salary)
-    if (job['min_salary'] > job['max_salary']):
+    try:
+        int_min_salary = int(job['min_salary'])
+        int_max_salary = int(job['max_salary'])
+        int_salary = int(salary)
+
+    except KeyError:
+        raise ValueError("Minimum or maximum salary does not exist")
+
+    except TypeError:
+        raise ValueError("Minimum, maximum and salary should be a number")
+
+    if int_min_salary > int_max_salary:
         raise ValueError("Minimum salary is higher than the maximum salary")
-    return int(job['min_salary']) <= int(salary) <= int(job['max_salary'])
+
+    return int_max_salary >= int_salary >= int_min_salary
 
 
 def filter_by_salary_range(
     jobs: List[dict],
     salary: Union[str, int]
 ) -> List[Dict]:
-    """Filters a list of jobs by salary range
+    filtered_jobs = []
 
-    Parameters
-    ----------
-    jobs : list
-        The jobs to be filtered
-    salary : int
-        The salary to be used as filter
-
-    Returns
-    -------
-    list
-        Jobs whose salary range contains `salary`
-    """
-    raise NotImplementedError
+    for elem in jobs:
+        try:
+            if matches_salary_range(elem, salary):
+                filtered_jobs.append(elem)
+        except ValueError:
+            print("Error")
+    return filtered_jobs
