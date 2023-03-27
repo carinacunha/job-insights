@@ -10,7 +10,7 @@ sorted_by_max = [
     {'date_posted': '2023-01-01', 'max_salary': 5000, 'min_salary': 2000},
     {'date_posted': '2023-02-01', 'max_salary': 4000, 'min_salary': 200},
     {'date_posted': '2023-03-01', 'max_salary': 3000, 'min_salary': 650}
-   
+
 ]
 
 sorted_by_min = [
